@@ -26,14 +26,12 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    // Let them go off of the screen before,
-    // moving them back so that they travel off
-    // smoothly.
     if (this.x > 500) {
-        // Once off screen, need to reset the enemy position so there
-        // are always 3 enemies on the screen
-        this.x = -60;
+        this.x = -100;
+
+        // Now that the enemy has exited the screen, randomly change the speed and placement of the enemy
         this.randomSpeed();
+        this.randomYLocation();
     }
 
     // Check if user hits enemy object
@@ -47,8 +45,12 @@ Enemy.prototype.update = function(dt) {
 }
 
 Enemy.prototype.randomSpeed = function() {
-    var speedMultiply = Math.floor(Math.random() * 10 + 1);
-    this.speed = 25 * speedMultiply;
+    this.speed = 25 * Math.floor(Math.random() * 10 + 1);
+}
+
+Enemy.prototype.randomYLocation = function() {
+    var col = Math.floor(Math.random() * 3);
+    this.y = 60 + 85 * col;
 }
 
 // Draw the enemy on the screen, required method for game
@@ -98,9 +100,8 @@ Player.prototype.handleInput = function(input) {
         }
     }
     if ( player.y === 0 ) {
+        // If player reaches top of screen, increase score and reset player position
         player.score = player.score + 1;
-        //document.getElementById("score").innerText="Score: " + player.score; 
-        //console.log(player.score);
         this.x = 200;
         this.y = 400;
 
@@ -118,13 +119,10 @@ var Key = function() {
 }
 
 Key.prototype.update = function() {
-    console.log("key");
-    console.log(player.key);
     // Check if user hits key object
     if ( (player.x > key.x - 50) && (player.x < key.x + 50) && (player.y > key.y - 50) && (player.y < key.y + 50) ) {
         // Player has hit key object, remove key object from screen
         player.key = player.key + 1;
-        //document.getElementById("key").innerText="Key: " + player.key; 
         key.x  = -100;
         key.y = -100;
     }
@@ -140,10 +138,11 @@ Key.prototype.render = function() {
 // Place the player object in a variable called player
 var allEnemies = [];
 for (var i = 0; i < 3; i++) {
-    var tempSpeed = Math.floor(Math.random() * 5 + 1) * 75;
-    allEnemies.push(new Enemy(-60, 60 + 85 * i, tempSpeed));
-
+    var col = Math.floor(Math.random() * 3);
+    var speed = Math.floor(Math.random() * 5 + 1) * 75;
+    allEnemies.push(new Enemy(-100, 60 + 85 * col, speed));
 }
+
 var player = new Player();
 var key = new Key();
 
