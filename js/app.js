@@ -19,13 +19,10 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     
-    // random interval variable to set for enemy speed
+    // Multiply dt with speed to incrmentally move the enemy object
     this.x = this.x + this.speed * dt;
 
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-
+    // Check if enemy is offscreen
     if (this.x > 500) {
         this.x = -100;
 
@@ -39,8 +36,8 @@ Enemy.prototype.update = function(dt) {
         // Player has hit enemy object, reset player to default start position
         player.x = 200;
         player.y = 400;
-        player.score = 0;
-        player.key = 0;
+        player.score = 0;   // Reset score
+        player.key = 0;     // Reset key score
     }
 }
 
@@ -81,6 +78,7 @@ Player.prototype.render = function() {
 
 // Handles user input of player character on screen
 Player.prototype.handleInput = function(input) {
+    // Handles up,left,right,down key entries.  Ignores all other inputs.
     if (input === 'left') {
         if (this.x > 0) {
             this.x = this.x - 100;
@@ -139,6 +137,7 @@ Key.prototype.render = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [];
+// Creating three enemies on acreen
 for (var i = 0; i < 3; i++) {
     var col = Math.floor(Math.random() * 3);
     var speed = Math.floor(Math.random() * 5 + 1) * 75;
