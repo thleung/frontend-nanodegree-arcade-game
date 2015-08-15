@@ -41,6 +41,8 @@ Enemy.prototype.update = function(dt) {
         // Player has hit enemy object, reset player to default start position
         player.x = 200;
         player.y = 400;
+        player.score = 0;
+        player.key = 0;
     }
 }
 
@@ -62,15 +64,11 @@ var Player = function() {
     this.x = 200;
     this.y = 400;
     this.score = 0;
-}
-
-Player.prototype.totalScore = function() {
-    console.log("inside totalScore");
-    return player.score;
+    this.key = 0;
 }
 
 Player.prototype.update = function() {
-
+    document.getElementById("score").innerText="Score: " + player.score;
 }
 
 Player.prototype.render = function() {
@@ -79,7 +77,6 @@ Player.prototype.render = function() {
 
 // Handles user input of player character on screen
 Player.prototype.handleInput = function(input) {
-    console.log(input);
     if (input === 'left') {
         if (this.x > 0) {
             this.x = this.x - 100;
@@ -102,13 +99,42 @@ Player.prototype.handleInput = function(input) {
     }
     if ( player.y === 0 ) {
         player.score = player.score + 1;
-        document.getElementById("score").innerText="Score: " + player.score; 
-        console.log(player.score);
+        //document.getElementById("score").innerText="Score: " + player.score; 
+        //console.log(player.score);
         this.x = 200;
         this.y = 400;
+
+        // generate new key location
+        key.x = Math.floor( Math.random() * 5 ) * 100;
+        key.y = (Math.floor( Math.random() * 3 ) + 1) * 80;
     }
 
 }
+
+var Key = function() {
+    this.sprite = 'images/Key.png';
+    this.x = Math.floor( Math.random() * 5 ) * 100;
+    this.y = (Math.floor( Math.random() * 3 ) + 1) * 80;
+}
+
+Key.prototype.update = function() {
+    console.log("key");
+    console.log(player.key);
+    // Check if user hits key object
+    if ( (player.x > key.x - 50) && (player.x < key.x + 50) && (player.y > key.y - 50) && (player.y < key.y + 50) ) {
+        // Player has hit key object, remove key object from screen
+        player.key = player.key + 1;
+        //document.getElementById("key").innerText="Key: " + player.key; 
+        key.x  = -100;
+        key.y = -100;
+    }
+    document.getElementById("key").innerText="Key: " + player.key;
+}
+
+Key.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -119,6 +145,7 @@ for (var i = 0; i < 3; i++) {
 
 }
 var player = new Player();
+var key = new Key();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -132,7 +159,3 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
