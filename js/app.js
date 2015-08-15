@@ -64,6 +64,11 @@ var Player = function() {
     this.score = 0;
 }
 
+Player.prototype.totalScore = function() {
+    console.log("inside totalScore");
+    return player.score;
+}
+
 Player.prototype.update = function() {
 
 }
@@ -97,6 +102,7 @@ Player.prototype.handleInput = function(input) {
     }
     if ( player.y === 0 ) {
         player.score = player.score + 1;
+        document.getElementById("score").innerText="Score: " + player.score; 
         console.log(player.score);
         this.x = 200;
         this.y = 400;
@@ -113,7 +119,6 @@ for (var i = 0; i < 3; i++) {
 
 }
 var player = new Player();
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
