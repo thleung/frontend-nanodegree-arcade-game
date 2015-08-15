@@ -44,10 +44,12 @@ Enemy.prototype.update = function(dt) {
     }
 }
 
+// Randomly changes enemy speed on screen
 Enemy.prototype.randomSpeed = function() {
     this.speed = 25 * Math.floor(Math.random() * 10 + 1);
 }
 
+// Randomly changes enemy location on screen
 Enemy.prototype.randomYLocation = function() {
     var col = Math.floor(Math.random() * 3);
     this.y = 60 + 85 * col;
