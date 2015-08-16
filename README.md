@@ -1,6 +1,12 @@
-frontend-nanodegree-arcade-game
-===============================
+Nanodegree Arcader Game
+-----------------------
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+This is the Nanodegree arcade game.  To run the game, load the index.html page.
+Once the page is loaded, the user has access to the player on screen by using
+the arrow keys to move the character.
 
-for self-checking their submission.
+The objective of the game is to move the character from the bottom of the screen
+to the top without touching the enemy insects walking across the screen.  Scoring
+is kept for each successful attempt.  User can also accumulate bonus key scattered
+on the screen.  Score and key points will accumulate until user touches an enemy
+insect which will reset the scores.
