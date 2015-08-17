@@ -117,8 +117,9 @@ Player.prototype.handleInput = function(input) {
         this.y = 400;
 
         /** After player reaches top, generate new key location for next play */
-        key.x = Math.floor( Math.random() * 5 ) * 100;
-        key.y = (Math.floor( Math.random() * 3 ) + 1) * 80;
+        //key.x = Math.floor( Math.random() * 5 ) * 100;
+        //key.y = (Math.floor( Math.random() * 3 ) + 1) * 80;
+        key.init();
     }
 
 };
@@ -130,8 +131,13 @@ Player.prototype.handleInput = function(input) {
  */
 var Key = function() {
     this.sprite = 'images/Key.png';
-    this.x = Math.floor( Math.random() * 5 ) * 100;
-    this.y = (Math.floor( Math.random() * 3 ) + 1) * 80;
+
+    // Each time init is run, randomizes the location of key object
+    this.init = function(){
+        this.x = Math.floor( Math.random() * 5 ) * 100;
+        this.y = (Math.floor( Math.random() * 3 ) + 1) * 80;
+    }
+    this.init();
 };
 
 /** Updates key object position when player collides with it.
